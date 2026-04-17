@@ -1,0 +1,197 @@
+:root {
+    --accent-orange: #f39200;
+    --text-dark: #1a1a1a;
+    --bg-light: #ebebeb;
+    --bg-light-box: #f4f7f9;
+    --input-border: #dcdcdc;
+    --color-white-logo: #f4f7f9;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* --- ОТРИСОВКА ЛОГОТИПА ПО ФОТО --- */
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 35px;
+    text-decoration: none;
+}
+
+.logo-box {
+    width: 44px;
+    height: 44px;
+    background-color: var(--accent-orange);
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* Геометрия значка внутри квадрата */
+.logo-box::before {
+    content: '';
+    width: 20px;
+    height: 12px;
+    border-top: 5px solid var(--color-white-logo);
+    border-left: 5px solid var(--color-white-logo);
+    border-right: 5px solid var(--color-white-logo);
+    position: absolute;
+    top: 12px;
+}
+.logo-box::after {
+    content: '';
+    width: 12px;
+    height: 4px;
+    background: var(--color-white-logo);
+    position: absolute;
+    bottom: 11px;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.logo-text .top {
+    color: var(--accent-orange);
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.logo-text .bottom {
+    color: var(--color-black);
+    font-size: 26px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+}
+
+/* --- ФОРМА АВТОРИЗАЦИИ --- */
+.login-card {
+    background: var(--bg-light-box);
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+h1 {
+    font-size: 18px;
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 3px rgba(243, 146, 0, 0.1);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--accent-orange);
+    color: var(--color-white-logo);
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background-color: var(--text-dark);
+}
+
+.support-info {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.support-info a {
+    color: var(--accent-orange);
+    text-decoration: none;
+}
+
+.error_text {
+    color: var(--error-red); 
+    font-size: 0.9em; 
+    margin-bottom: 10px;
+}
+
+
+/* Адаптивность */
+@media (max-width: 480px) {
+    .login-card {
+        padding: 30px 20px;
+        box-shadow: none;
+        background: transparent;
+    }
+}
+
+.notification {
+    position: fixed;
+    top: -900px; /* Прячем за верхним краем */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent-orange);
+    color: var(--color-white);
+    padding: 15px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow-lg);
+    font-weight: 600;
+    z-index: 2000;
+    transition: top 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.notification.show {
+    top: 10px; /* Выезжает на экран */
+}

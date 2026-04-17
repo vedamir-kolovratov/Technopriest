@@ -1,0 +1,465 @@
+/* Admin page styles */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.settings-container {
+    max-width: 100%; /* Растягивает на весь экран */
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box; /* Чтобы padding не создавал полосу прокрутки */
+}
+
+
+.node-header {
+    width: 100%;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.header-text h2 {
+    margin: 0 0 5px 0;
+    font-size: 24px;
+    color: var(--text-dark);
+}
+
+.status-text {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.settings-card-admin {
+    display: flex;
+    align-items: center;
+    flex-direction: row; /* Принудительно в строку */
+    gap: 15px;
+    width: 100%;
+    
+    /* Липкое позиционирование (опционально) */
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+}
+
+.settings-card-admin .card-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-card-admin .card-header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--text-dark);
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+.info-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-dark);
+}
+
+.readonly-field {
+    padding: 10px;
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-dark);
+}
+
+.status-hint {
+    padding: 0 20px 20px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.security-section .settings-form {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    background: var(--accent-orange);
+    color: var(--color-white);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.submit-btn:hover {
+    background: var(--accent-orange-dark);
+}
+
+.bis-btn-setting {
+    padding: 10px 20px;
+    background: var(--accent-orange);
+    color: var(--color-white);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.bis-btn-setting:hover {
+    background: var(--accent-orange-dark);
+}
+
+/* Table styles */
+table th {
+    padding: 15px 20px;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--bg-light-gray);
+    border-bottom: 1px solid var(--border-color);
+}
+
+table td {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#paginationBar {
+    padding: 12px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    border-top: 1px solid var(--border-color);
+    background: var(--color-white);
+}
+
+#paginationBar button {
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--color-white);
+    cursor: pointer;
+}
+
+#paginationBar button:disabled {
+    background: var(--bg-disabled);
+    cursor: default;
+}
+
+@media (max-width: 900px) {
+    table th, table td {
+        padding: 12px 10px;
+    }
+
+    table td:last-child {
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    table td:last-child button {
+        margin: 3px 0 3px 6px !important;
+        min-width: 70px;
+        white-space: normal;
+    }
+
+    table td:last-child button.delete-btn {
+        margin: 3px 0 3px 5px;
+    }
+}
+
+/* Modal styles */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--overlay-dark);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    max-width: 500px;
+    width: 95%;
+    background: var(--color-white);
+    border-radius: 12px;
+    box-shadow: 0 15px 40px var(--shadow-lg);
+    padding: 20px;
+    position: relative;
+}
+
+.modal h3 {
+    margin-bottom: 15px;
+}
+
+.modal form div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal label {
+    font-weight: 600;
+}
+
+.modal input[type="text"],
+.modal input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+#permissionsBlock {
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--color-white);
+}
+
+#permissionsBlock .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+}
+
+#permissionsBlock label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+#permissionsBlock input[type="checkbox"] {
+    accent-color: var(--accent-orange);
+}
+
+.modal .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal button {
+    padding: 10px 16px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-light-gray);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.modal button[type="submit"] {
+    background: var(--accent-orange);
+    color: var(--color-white);
+    border: none;
+}
+
+.modal button[type="submit"]:hover {
+    background: var(--accent-orange-dark);
+}
+
+/* Confirm delete modal */
+#confirmDeleteOverlay .modal {
+    max-width: 400px;
+}
+
+#confirmDeleteOverlay .modal p {
+    margin-bottom: 20px;
+    color: var(--text-muted);
+}
+
+#confirmDeleteOverlay .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+#confirmDeleteOverlay #confirmDelete {
+    background: var(--accent-red);
+    color: var(--color-white);
+    border: none;
+}
+
+/* Button styles */
+.edit-btn, .toggle-btn, .delete-btn {
+    background: none;
+    border: 1px solid var(--border-dark);
+    color: var(--color-black);
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.edit-btn:hover {
+    background: var(--bg-light-gray-2) !important;
+}
+
+.toggle-btn[data-active="true"] {
+    color: var(--accent-red-light) !important;
+    border-color: var(--accent-red-light) !important;
+}
+
+.toggle-btn[data-active="false"] {
+    color: #ea580c !important;
+    border-color: #ea580c !important;
+}
+
+.delete-btn {
+    color: var(--accent-red-light);
+    border-color: var(--accent-red-light);
+    margin-right: 5px;
+}
+
+.delete-btn:hover {
+    background: var(--bg-red-light);
+}
+
+
+/* Search and filter styles */
+.settings-card-admin .search-filter {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 20px;
+}
+
+.settings-card-admin .search-filter .search-input {
+    position: relative;
+    flex-grow: 1;
+}
+
+.settings-card-admin .search-filter .search-input::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--border-dark);
+    border-radius: 50%;
+}
+
+.settings-card-admin .search-filter .search-input::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    bottom: -5px;
+    width: 6px;
+    height: 2px;
+    background: var(--border-dark);
+    transform: rotate(45deg);
+}
+
+.settings-card-admin .search-filter input[type="text"] {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.settings-card-admin .search-filter input[type="text"]:focus {
+    border-color: var(--accent-orange);
+}
+
+.settings-card-admin .search-filter select {
+    width: 180px;
+    padding: 11px 35px 11px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--color-white);
+    color: var(--text-dark);
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: all 0.2s;
+}
+
+.settings-card-admin .search-filter select:focus {
+    border-color: var(--accent-orange);
+}
+
+.settings-card-admin .search-filter .select-arrow {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--border-dark);
+}
+
+.settings-card-admin .search-filter button {
+    padding: 11px 20px;
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.settings-card-admin .search-filter button:hover {
+    background: #e0e0e0;
+}
+
+@media (max-width: 900px) {
+    /* Контейнер (ячейка таблицы) */
+    table td:last-child {
+        display: flex;
+        flex-direction: column; /* Выстраиваем в столбик */
+        align-items: flex-end;    /* Ровно по правому краю */
+        gap: 8px;                /* Одинаковое расстояние между кнопками */
+        padding: 10px 20px;
+    }
+
+    /* Сами кнопки внутри ячейки */
+    table td:last-child button {
+        margin: 0 !important;    /* Сбрасываем все JS-маржины */
+        width: 140px;            /* Фиксированная ширина, чтобы кнопки были одинаковыми */
+        text-align: center;      /* Текст по центру внутри кнопки */
+        display: block;
+    }
+}
+
+
+
+
+/*=========================================================*/
+/* перенесено на: */
+/*=========================================================*/
+
+
+
