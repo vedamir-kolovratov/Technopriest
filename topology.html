@@ -1,0 +1,28 @@
+{% extends 'technopriest/master.html' %}
+{% load static %}
+{% block page-name %}: Топология{% endblock %}
+{% block icon-topo %}active{% endblock %}
+
+{% block work %}
+<!-- 1. ЛОКАЛЬНЫЕ СТИЛИ -->
+<link rel="stylesheet" href="{% static 'technopriest/css/leaflet.css' %}">
+<link rel="stylesheet" href="{% static 'technopriest/css/topology.css' %}">
+
+<div id="map-container">
+    <div class="map-controls-panel">
+        <div class="panel-title">
+            <div class="dote"></div>
+            Навигация по топологии
+        </div>
+        <div class="search-wrapper">
+            <input type="text" id="mapSearch" placeholder="Адрес или IP узла...">
+            <button onclick="runSearch()">Поиск</button>
+        </div>
+    </div>
+    <div id="map"></div>
+</div>
+
+<script src="{% static 'technopriest/js/leaflet.js' %}"></script>
+
+<script src="{% static 'technopriest/js/topology.js' %}"></script>
+{% endblock %}

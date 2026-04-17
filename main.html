@@ -1,0 +1,197 @@
+{% extends 'technopriest/master.html' %}
+{% load static %}
+{% load permissions_tags %}
+
+{% block page-name %}: Справочник{% endblock %}
+{% block icon-book %}active{% endblock %}
+
+{% block work %}
+<div class="settings-container">
+    <div class="node-header">
+        <div class="header-text">
+            <h2>Справочник</h2>
+            <p class="status-text">Система мониторинга и управления сетью "Цифровой Домовой" для
+                инженеров.</p>
+        </div>
+    </div>
+
+
+    <section class="settings-card about-section">
+        <div class="card-header-top">
+            <h2>Предназначение разделов</h2>
+        </div>
+        {% if request.user.is_authenticated and request.user|has_section:'topology' %}
+        <div class="card-header">
+            <div class="css-icon icon-topo"></div>
+            <h3>Топология</h3>
+        </div>
+        <div class="about-content">
+            <p><strong>[в разработке]</strong> — в данный момент не реализовано.</p>
+            <p>Динамическая прорисовка карты сети города с подписью портов и отображением на карте города</p>
+            <p>Признано не целесообразным на текущем этапе разработки - будет реализовано после выхода в релиз.</p>
+        </div>
+        {% endif %}
+        {% if request.user.is_authenticated and request.user|has_section:'incidents' %}
+
+        <div class="card-header">
+            <div class="css-icon icon-alert"></div>
+            <h3>Инцинденты</h3>
+        </div>
+        <div class="about-content">
+            <p><strong>Дублирование проблем из Nagios</strong> — раздел позволяет решить проблему недоступности Nagios вне локальной сети.</p>
+            <p>Вы можете видеть инциденты в прямом эфире, данные обновляются раз в 10 секунд</p>
+            <p>Так же доступна возможность вносить комментарии которые так же будут дублироваться в Zabbix.</p>
+            <p><small>Может однажды отобразим некоторые проблемы из Zabbix (но это не точно)</small></p>
+        </div>
+
+        {% endif %}
+        {% if request.user.is_authenticated and request.user|has_section:'node_connect' %}
+
+        <div class="card-header">
+            <div class="css-icon icon-plug"></div>
+            <h3>Подключение к узлу</h3>
+        </div>
+        <div class="about-content">
+            <p><strong>Удаленный доступ</strong> — инструменты для прямого управления активным оборудованием.</p>
+            <p>Интерфейс предоставляет доступ к SSH/Telnet консолям и Web-интерфейсам коммутаторов через защищенный
+                шлюз.</p>
+            <p>Доступна функция быстрой проверки линков и состояния портов без необходимости полного входа в CLI.</p>
+            <p>Но с ограничением в виде запрете отправки команд не предумотренных конфигурацией сайта</p>
+        </div>
+
+        {% endif %}
+        {% if request.user.is_authenticated and request.user|has_section:'admin' %}
+
+        <div class="card-header">
+            <div class="css-icon icon-gear"></div>
+            <h3>Администрирование</h3>
+        </div>
+        <div class="about-content">
+            <p><strong>Управление правами</strong> — настройка доступа инженеров к различным сегментам ресурса.</p>
+            <p>Здесь выполняется создание учетных записей и привязка их к группам доступа.</p>
+        </div>
+
+        {% endif %}
+        {% if request.user.is_authenticated and request.user|has_section:'config' %}
+
+        <div class="card-header">
+            <div class="css-icon icon-config"></div>
+            <h3>Конфигурация</h3>
+        </div>
+        <div class="about-content">
+            <p><strong>Управление конфигурациями</strong> — работа с шаблонами настроек подключения к узлам.</p>
+        </div>
+
+        {% endif %}
+        {% if request.user.is_authenticated and request.user|has_section:'log' %}
+
+        <div class="card-header">
+            <div class="css-icon icon-logs"></div>
+            <h3>Логирование</h3>
+        </div>
+        <div class="about-content">
+            <p><strong>Журнал событий</strong> — сбор логов действий пользователей.</p>
+        </div>
+
+        {% endif %}
+    </section>
+
+    <section class="settings-card about-section">
+        <div class="card-header-top">
+            <h2>Журнал изменений</h2>
+        </div>
+
+
+
+
+
+
+        <div class="card-header">
+            <h3>2.1.0-betta [patch 13.04-c]</h3>
+        </div>
+        <div class="about-content">
+            <p><strong>[исправлено]</strong> — кнопка проверки обрыва больше не вызывает разрыва подключения.</p>
+            <p><strong>[исправлено]</strong> — отображение сообщений в консоли раздела "подключение к узлу".</p>
+            <p><strong>[исправлено]</strong> — мобильная верстка css.</p>
+            <p><strong>[новое]</strong> — добавлены новые взаимодействия с узлами и новые типы узлов.</p>
+            <p><small>Дата: 13.04.2026</small></p>
+        </div>
+
+
+
+
+
+
+
+        <div class="card-header">
+            <h3>2.1.0-betta [patch 13.04-b]</h3>
+        </div>
+        <div class="about-content">
+            <p><strong>[исправлено]</strong> — заморозка обновлений инциндентов.</p>
+            <p><strong>[исправлено]</strong> — сортировка по столюцам в разделе "администрирование".</p>
+            <p><strong>[исправлено]</strong> — невозможность подключиться к узлу по telnet по причине отсутсвтия ip в hosts.json.</p>
+            <p><strong>[исправлено]</strong> — мобильная верстка css.</p>
+            <p><strong>[новое]</strong> — выбор портов для команд требующие такового в разделе "подключение к узлу".</p>
+            <p><small>Дата: 13.04.2026</small></p>
+        </div>
+        <div class="card-header">
+            <h3>2.1.0-betta [patch 13.04-a]</h3>
+        </div>
+        <div class="about-content">
+            <p><strong>[исправлено]</strong> — обнуление времен инциндента при повторном появлении.</p>
+            <p><strong>[исправлено]</strong> — внесение комментариев к инцинденту.</p>
+            <p><strong>[исправлено]</strong> — принудительное обновление страницы (обновляется только элемент, а не вся таблица).</p>
+            <p><strong>[исправлено]</strong> — поиск инциндентов.</p>
+            <p><strong>[исправлено]</strong> — цветовая политра страницы авторизации.</p>
+            <p><small>Дата: 13.04.2026</small></p>
+        </div>
+        <div class="card-header">
+            <h3>2.1.0-betta [patch 12.04-a]</h3>
+        </div>
+        <div class="about-content">
+            <p><strong>[исправлено]</strong> — мобильная верстка css.</p>
+            <p><strong>[исправлено]</strong> — боковое меню мобильной версии.</p>
+            <p><strong>[исправлено]</strong> — поддержка планшетов.</p>
+            <p><strong>[новое]</strong> — добавлены темы, стабильная тема только одна - светлая.</p>
+            <p><small>Дата: 12.04.2026</small></p>
+        </div>
+        <div class="card-header">
+            <h3>2.1.0-betta</h3>
+        </div>
+        <div class="about-content">
+            <p><strong>[новое]</strong> — публикация сайта в сети в сети: <strong>office.ktv-spb.ru:5080</strong>.</p>
+            <p><strong>[новое]</strong> — публикация сайта в сети в сети офиса: <strong>192.168.1.11:5080</strong>.</p>
+            <p><small>Дата: 09.04.2026</small></p>
+        </div>
+        <div class="card-header">
+            <h3>2.1.0-alpha</h3>
+        </div>
+        <div class="about-content">
+            <p><strong>[новое]</strong> — управление инциндентами из Nagios / Zabbix.</p>
+            <p><strong>[новое]</strong> — подключение к узлам по telnet.</p>
+            <p><strong>[новое]</strong> — логирование и управление паравами / настройками подключения.</p>
+            <p><small>Дата: 05.04.2026</small></p>
+        </div>
+        <div class="card-header">
+            <h3>2.1.0-test</h3>
+        </div>
+        <div class="about-content">
+            <p><strong>[новое]</strong> — тестовый первый запуск.</p>
+            <p><small>Дата: 28.03.2026</small></p>
+        </div>
+    </section>
+
+
+    <section class="settings-card about-section">
+        <div class="card-header-top">
+            <h2>О ресурсе</h2>
+        </div>
+        <div class="about-content">
+            <p><strong>Техно-сеть</strong> — инженерная среда для оперативного управления коммутаторами и мониторинга их
+                состояния.</p>
+            <p>Разработчик: Миронов В. А.</p>
+            <p><small>Дата: 28.03.2026</small></p>
+        </div>
+    </section>
+</div>
+{% endblock %}

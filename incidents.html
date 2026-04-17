@@ -1,0 +1,134 @@
+{% extends 'technopriest/master.html' %}
+{% load static %}
+{% block page-name %}: Инциденты{% endblock %}
+{% block icon-alert %}active{% endblock %}
+
+
+{% block work %}
+    {% csrf_token %}
+    <link rel="stylesheet" href="{% static 'technopriest/css/incidents.css' %}">
+
+    <div class="node-header">
+        <div class="header-text">
+            <h2>Инциденты сети</h2>
+            <p class="status-text">Список проблем; комментарий дублируется в Zabbix</p>
+        </div>
+    </div>
+
+    <div class="serch_panel">
+        <form method="get">
+            <div class="serch_panel_point">
+                <label>Поиск по IP или названию</label>
+                <input type="text" name="q" value="{{ request.GET.q|default:'' }}" placeholder="Введите IP или название...">
+            </div>
+            <div class="serch_panel_point_second">
+                <button type="submit" id="searchButton">
+                    Найти
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="table_panel">
+        <h3>
+            <span>●</span> Текущие проблемы
+        </h3>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr class="table-responsive-description">
+                        <th>
+                            <a href="?sort=host&order={% if request.GET.sort == 'host' and request.GET.order == 'asc' %}desc{% else %}asc{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                IP {% if request.GET.sort == 'host' %}{% if request.GET.order == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+                            </a>
+                        </th>
+                        <th>
+                            <a href="?sort=title&order={% if request.GET.sort == 'title' and request.GET.order == 'asc' %}desc{% else %}asc{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                Название {% if request.GET.sort == 'title' %}{% if request.GET.order == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+                            </a>
+                        </th>
+                        <th>Комментарий</th>
+                        <th>
+                            <a href="?sort=created_at&order={% if request.GET.sort == 'created_at' and request.GET.order == 'asc' %}desc{% else %}asc{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                Обнаружено {% if request.GET.sort == 'created_at' or not request.GET.sort %}{% if request.GET.order == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+                            </a>
+                        </th>
+                        <th>Длительность</th>
+                        <th class="past">Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for incident in active_incidents %}
+                    <tr class="list-line">
+                        <td class="p600">
+                            {{ incident.host }}
+                            <a href="https://bis.ktv-spb.ru/?cat=bl_t_d_q&area_id=&sql_order=&sql_order_type=ASC&title=&ip={{ incident.host }}&bl_d_type=&bl_d_syn=&bl_d_model=&bl_home_ID_inputtext=0&bl_home">
+                                <span><sup>[бис]</sup></span>
+                            </a>
+                        </td>
+                        <td><span>●</span> {{ incident.title }}</td>
+                        <td class="p280">{{ incident.comment|default:"—" }}</td>
+                        <td>{{ incident.created_at|date:"d.m.Y H:i" }}</td>
+                        <td class="p500">
+                            {{ incident.created_at|timesince }}
+                        </td>
+                        <td class="past">
+                            <button type="button" class="incident-comment-open"
+                                    data-host="{{ incident.host|escape }}"
+                                    data-title="{{ incident.title|escape }}"
+                                    data-timestamp="{{ incident.timestamp|escape }}"
+                                    title="Комментарий в Zabbix"
+                                    onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
+                                Комментарий
+                            </button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="list-line-empty">Все духи машин спокойны. Инцидентов не обнаружено.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if active_incidents.has_other_pages %}
+        <div class="pagination">
+            {% if active_incidents.has_previous %}
+                <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ active_incidents.previous_page_number }}">← Предыдущая</a>
+            {% endif %}
+
+            {% for num in active_incidents.paginator.page_range %}
+                {% if num == active_incidents.number %}
+                    <span>{{ num }}</span>
+                {% else %}
+                    <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if active_incidents.has_next %}
+                <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ active_incidents.next_page_number }}">Следующая →</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div id="incidentCommentOverlay" class="incidentCommentOverlay">
+        <div class="incidentCommentOverlay_div">
+            <h3>Комментарий в Zabbix</h3>
+            <p id="incidentCommentMeta" class="incidentCommentMeta"></p>
+            <label for="incidentCommentText">Комментарий</label>
+            <textarea id="incidentCommentText" rows="4" placeholder="Текст продублируется zabbix-acknowledge для событий, сопоставленных с IP…"></textarea>
+            <p id="incidentCommentError" class="incidentCommentError"></p>
+            <div class="incident-button">
+                <button type="button" id="incidentCommentCancel" class="incidentCommentCancel">Отмена</button>
+                <button type="button" id="incidentCommentSubmit" class="incidentCommentSubmit" data-url="{% url 'incident_comment' %}">Отправить</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="incidentToast" class="incidentToast"></div>
+
+    <script src="{% static 'technopriest/js/incidents.js' %}"></script>
+
+{% endblock %}

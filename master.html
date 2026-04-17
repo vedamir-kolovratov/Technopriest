@@ -1,0 +1,223 @@
+{% load static %}
+{% load permissions_tags %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Техно-сеть{% block page-name %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'technopriest/css/main.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'technopriest/img/favicon.ico' %}">
+    <script>
+        // Применяем тему ДО загрузки страницы, чтобы избежать мерцания
+        (function() {
+            const STORAGE_KEY = 'technopriest_theme';
+            const savedTheme = localStorage.getItem(STORAGE_KEY) || 'auto';
+            
+            if (savedTheme !== 'auto') {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+            
+            console.log('[Early Init] Сохраненная тема из localStorage:', savedTheme);
+            console.log('[Early Init] data-theme установлен на:', document.documentElement.getAttribute('data-theme') || 'none (auto)');
+        })();
+    </script>
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo-container">
+        <div class="logo-icon"></div>
+        <div class="logo-text-group">
+            <span class="logo-sub">корпоративный</span>
+            <span class="logo-brand">ДОМОВОЙ</span>
+        </div>
+    </div>
+
+    <nav class="nav-menu">
+        <a href="{% url 'main' %}" class="nav-item {% block icon-book %}{% endblock %}">
+            <div class="css-icon icon-book"></div>
+            <span>Справочник</span>
+        </a>
+
+        {% if request.user.is_authenticated and request.user|has_section:'topology' %}
+        <a href="{% url 'topology_page' %}" class="nav-item {% block icon-topo %}{% endblock %}">
+            <div class="css-icon icon-topo"></div>
+            <span>Топология</span>
+        </a>
+        {% endif %}
+
+        {% if request.user.is_authenticated and request.user|has_section:'incidents' %}
+        <a href="{% url 'incidents_page' %}" class="nav-item {% block icon-alert %}{% endblock %}">
+            <div class="css-icon icon-alert"></div>
+            <span>Инциденты</span>
+        </a>
+        {% endif %}
+
+        {% if request.user.is_authenticated and request.user|has_section:'node_connect' %}
+        <a href="{% url 'connect_page' %}" class="nav-item {% block icon-plug %}{% endblock %}">
+            <div class="css-icon icon-plug"></div>
+            <span>Подключение к узлу</span>
+        </a>
+        {% endif %}
+
+        {% if request.user.is_authenticated and request.user|has_section:'user_storage' %}
+        <a href="{% url 'user_storage' %}" class="nav-item {% block icon-user_storage %}{% endblock %}">
+            <div class="css-icon icon-user_storage"></div>
+            <span>Моё оборудование</span>
+        </a>
+        {% endif %}
+
+        {% if request.user.is_authenticated and request.user|has_section:'storage' %}
+        <div class="nav-group">
+            <!-- Django проверяет: если текущий URL есть в списке ниже, чекбокс будет активен -->
+            <input type="checkbox" id="menu-storage-toggle" class="menu-checkbox"
+                {% if request.resolver_match.url_name in 'at_storage,in_work,table,del_storage,table_old' %}checked{% endif %}>
+
+            <label for="menu-storage-toggle" class="nav-item category-title">
+                <div class="arrow-icon-wrapper">
+                    <span class="arrow">▼</span>
+                </div>
+                <span class="category-text">Управление складом</span>
+            </label>
+
+            <div class="sub-menu">
+                <a href="{% url 'at_storage' %}" class="nav-item {% block icon-at_storage %}{% endblock %}">
+                    <div class="css-icon icon-at_storage"></div> <span>Складской учет</span>
+                </a>
+                <a href="{% url 'in_work' %}" class="nav-item {% block icon-in_work %}{% endblock %}">
+                    <div class="css-icon icon-in_work"></div> <span>Учет выданного</span>
+                </a>
+                <a href="{% url 'del_storage' %}" class="nav-item {% block icon-del_storage %}{% endblock %}">
+                    <div class="css-icon icon-del_storage"></div> <span>Учет списаного</span>
+                </a>
+                <a href="{% url 'table' %}" class="nav-item {% block icon-table %}{% endblock %}">
+                    <div class="css-icon icon-table"></div> <span>Текущие служебки</span>
+                </a>
+                <a href="{% url 'table_old' %}" class="nav-item {% block icon-table_old %}{% endblock %}">
+                    <div class="css-icon icon-table_old"></div> <span>Архивные служебки</span>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if request.user|has_section:'admin' or request.user|has_section:'config' or request.user|has_section:'log' or request.user|has_section:'storage_mail' %}
+        <div class="nav-group">
+            <!-- Django проверяет: если текущий URL есть в списке ниже, чекбокс будет активен -->
+            <input type="checkbox" id="menu-admin-toggle" class="menu-checkbox"
+                {% if request.resolver_match.url_name in 'admin_page,config_page,log_page,storage_mail_page' %}checked{% endif %}>
+
+            <label for="menu-admin-toggle" class="nav-item category-title">
+                <div class="arrow-icon-wrapper">
+                    <span class="arrow">▼</span>
+                </div>
+                <span class="category-text">Администрирование</span>
+            </label>
+
+            <div class="sub-menu">
+                {% if request.user.is_authenticated and request.user|has_section:'admin' %}
+                <a href="{% url 'admin_page' %}" class="nav-item {% block icon-gear %}{% endblock %}">
+                    <div class="css-icon icon-gear"></div>
+                    <span>Пользователи</span>
+                </a>
+                {% endif %}
+
+                {% if request.user.is_authenticated and request.user|has_section:'storage_mail' %}
+                <a href="{% url 'storage_mail_page' %}" class="nav-item {% block icon-storage_mail %}{% endblock %}">
+                    <div class="css-icon icon-storage_mail"></div>
+                    <span>Служебки складу</span>
+                </a>
+                {% endif %}
+
+                {% if request.user.is_authenticated and request.user|has_section:'config' %}
+                <a href="{% url 'config_page' %}" class="nav-item {% block icon-config %}{% endblock %}">
+                    <div class="css-icon icon-config"></div>
+                    <span>Конфигурация</span>
+                </a>
+                {% endif %}
+
+                {% if request.user.is_authenticated and request.user|has_section:'log' %}
+                <a href="{% url 'log_page' %}" class="nav-item {% block icon-logs %}{% endblock %}">
+                    <div class="css-icon icon-logs"></div>
+                    <span>Логирование</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <a href="https://bis.ktv-spb.ru" class="bis-btn">
+            <span>Перейти в БИС</span>
+        </a>
+    </nav>
+
+    <div class="nav-footer">
+        <a href="https://t.me/+-UVwx4OmNktlNjgy" class="nav-item">
+            <div class="css-icon icon-support"></div>
+            <span>Техподдержка</span>
+        </a>
+        <a href="{% url 'settings' %}" class="nav-item {% block icon-settings %}{% endblock %}">
+            <div class="css-icon icon-settings"></div>
+            <span>Настройки</span>
+        </a>
+        <!-- Кнопка Выход с красной подсветкой -->
+        <a href="{% url 'logout' %}" class="nav-item nav-exit">
+            <div class="css-icon icon-exit"></div>
+            <span>Выход</span>
+        </a>
+    </div>
+</aside>
+
+<main class="main-content" id="mainContent">
+    {% block work %}
+    {% endblock %}
+</main>
+<button class="toggle-menu" onclick="toggleSidebar()" id="toggleBtn">✕</button>
+<script src="{% static 'technopriest/js/main.js' %}"></script>
+<!-- Скрипт переключателя тем -->
+<script src="{% static 'technopriest/js/theme-switcher.js' %}"></script>
+
+<!-- Отладочный скрипт (можно удалить после проверки) -->
+<script>
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        console.log('%c=== ДИАГНОСТИКА ТЕМЫ ===', 'color: #ff9d40; font-weight: bold; font-size: 14px');
+        
+        const html = document.documentElement;
+        const savedTheme = localStorage.getItem('technopriest_theme') || 'auto';
+        const currentTheme = html.getAttribute('data-theme') || 'auto';
+        
+        console.log('Сохраненная тема в localStorage:', savedTheme);
+        console.log('data-theme атрибут на <html>:', currentTheme);
+        
+        // Проверяем CSS переменные
+        const styles = window.getComputedStyle(html);
+        const bgColor = styles.getPropertyValue('--background-color').trim();
+        const textColor = styles.getPropertyValue('--text-dark').trim();
+        const accentColor = styles.getPropertyValue('--accent-orange').trim();
+        
+        console.log('CSS переменные:');
+        console.log('  --background-color:', bgColor || 'не установлена');
+        console.log('  --text-dark:', textColor || 'не установлена');
+        console.log('  --accent-orange:', accentColor || 'не установлена');
+        
+        // Проверяем элемент select
+        const select = document.getElementById('theme-select');
+        if (select) {
+            console.log('Элемент #theme-select найден ✓');
+            console.log('  Current value:', select.value);
+            console.log('  Available options:', Array.from(select.options).map(o => o.value));
+        } else {
+            console.warn('Элемент #theme-select НЕ найден ✗ (может быть вы не на странице settings)');
+        }
+        
+        console.log('%cДля переключения темы используйте:', 'color: blue; font-weight: bold');
+        console.log('  window.ThemeSwitcher.setTheme("light")');
+        console.log('  window.ThemeSwitcher.setTheme("dark")');
+        console.log('  window.ThemeSwitcher.setTheme("grey")');
+        console.log('  window.ThemeSwitcher.setTheme("auto")');
+    }, 100);
+});
+</script>
+</body>
+</html>

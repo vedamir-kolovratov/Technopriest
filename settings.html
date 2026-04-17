@@ -1,0 +1,110 @@
+{% extends 'technopriest/master.html' %}
+{% load static %}
+{% block page-name %}: Литания{% endblock %}
+{% block icon-settings %}active{% endblock %}
+
+{% block work %}
+
+<div class="settings-container">
+    <!-- Блок профиля (только чтение) -->
+    <section class="settings-card profile-section">
+        <div class="card-header">
+            <h2>Данные авторизованного инженера</h2>
+        </div>
+        <div class="profile-grid">
+            <div class="info-group">
+                <label>ФИО</label>
+                <div class="readonly-field">{{ request.user.last_name }} {{ request.user.first_name }} {{ request.user.middle_name|default:"" }}</div>
+            </div>
+            <div class="info-group">
+                <label>Должность</label>
+                <div class="readonly-field">{{ request.user.position|default:"Техножрец" }}</div>
+            </div>
+        </div>
+        <p class="status-hint">Контактные данные заблокированы для редактирования.</p>
+    </section>
+
+    <!-- Блок смены пароля -->
+    <section class="settings-card security-section">
+        <div class="card-header">
+            <h2>Безопасность канала</h2>
+        </div>
+        <form method="post" class="settings-form"> <!-- technopriest Qwerty12! -->
+            <div class="info-group">
+                <label>Сменить пароль:</label>
+            </div>
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="password" name="old_password" placeholder="Текущий пароль" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="new_password" placeholder="Новый пароль" required>
+                <input type="password" name="confirm_password" placeholder="Повтор нового пароля" required>
+            </div>
+            <button type="submit" class="submit-btn">Обновить протоколы доступа</button>
+        </form>
+    </section>
+
+    <!-- Блок выбора темы -->
+    <section class="settings-card theme-section">
+        <div class="card-header">
+            <h2>Внешний вид</h2>
+        </div>
+        <div class="theme-settings">
+            <div class="info-group">
+                <label for="theme-select">Выберите тему оформления:</label>
+                <select id="theme-select" class="theme-dropdown">
+                    <option value="light">Classic Origin (белая)</option>
+                    <option value="dark">Deep Whignt (ночная)</option>
+                    <option value="grey">Whignt Noir (серая)</option>
+                    <option value="auto">Автоматически</option>
+                </select>
+            </div>
+            <p class="status-hint">Выбранная тема сохранится на этом устройстве.</p>
+        </div>
+    </section>
+
+    <!-- Описание системы -->
+    <section class="settings-card about-section">
+        <div class="card-header">
+            <h2>О ресурсе</h2>
+        </div>
+        <div class="about-content">
+            <p><strong>Техно-сеть</strong> — инженерная среда для оперативного управления коммутаторами и мониторинга их состояния.</p>
+            <p>Разработчик: Миронов В. А.</p>
+            <br>
+            <p><small>Дата: 28.03.2026</small></p>
+        </div>
+    </section>
+</div>
+
+{% if error_message %}
+<div id="errorAlert" class="notification">
+    <p>{{ error_message }}</p>
+</div>
+{% endif %}
+
+{% if success_message %}
+<div id="successAlert" class="notification">
+    <p>{{ success_message }}</p>
+</div>
+{% endif %}
+
+<script>
+{% if error_message or success_message %}
+document.addEventListener('DOMContentLoaded', function() {
+    {% if error_message %}
+    const alertId = 'errorAlert';
+    {% else %}
+    const alertId = 'successAlert';
+    {% endif %}
+    const alertBox = document.getElementById(alertId);
+    alertBox.classList.add('show');
+    setTimeout(() => {
+        alertBox.classList.remove('show');
+    }, 8000);
+});
+{% endif %}
+</script>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация техножреца</title>
+    <link rel="stylesheet" href="{% static 'technopriest/css/login.css' %}">
+</head>
+<body>
+
+<div class="login-card">
+    <!-- Логотип как на фото -->
+    <div class="logo-wrapper">
+        <div class="logo-box"></div>
+        <div class="logo-text">
+            <span class="top">корпоративный</span>
+            <span class="bottom">ДОМОВОЙ</span>
+        </div>
+    </div>
+
+    <h1>Вход для сотрудников</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Логин</label>
+            <input type="text" name="username" placeholder="Введите ваш логин" required>
+        </div>
+
+        <div class="form-group">
+            <label>Пароль</label>
+            <input type="password" name="password" placeholder="••••••••" required>
+        </div>
+
+        {% if error %}
+        <p class="error_text">{{ error }}</p>
+        {% endif %}
+
+        <button type="submit" class="btn-login">Войти в систему</button>
+    </form>
+
+    <div class="support-info">
+        <p><a href="#">Забыли пароль?</a></p>
+        <p style="margin-top: 15px;">Служба поддержки:<br><strong>8 (812) 316-84-84 доб. 505</strong></p>
+    </div>
+</div>
+<div id="passwordAlert" class="notification">
+    <p>Извините.. но ничем не можем помочь.</p>
+    <p>Пожслайста обратитесь к вашему</p>
+    <p>непосредственному руководителю!</p>
+</div>
+
+
+<script src="{% static 'technopriest/js/login.js' %}"></script>
+</body>
+</html>

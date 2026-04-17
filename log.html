@@ -1,0 +1,116 @@
+{% extends 'technopriest/master.html' %}
+{% load static %}
+{% block page-name %}: Журнал{% endblock %}
+{% block icon-logs %}active{% endblock %}
+
+{% block work %}
+<div class="log-container" style="display: flex; flex-direction: column; gap: 25px;">
+
+    <!-- БЛОК 1: Заголовок (стиль как в Конфигурации) -->
+    <div style="background: var(--color-white); padding: 20px 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        <h2 style="margin: 0;">Журнал священных манипуляций</h2>
+        <p style="color: var(--text-muted); margin: 5px 0 0 0; font-size: 14px;">Архив действий техножрецов и отклики машинного духа</p>
+    </div>
+
+    <!-- БЛОК 2: Панель поиска и фильтров (вынесена отдельно) -->
+    <div style="position: sticky; top: 10px; z-index: 100; background: var(--color-white); padding: 15px 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <form method="get" style="display: flex; flex-wrap: nowrap; align-items: flex-end; gap: 12px;">
+
+            <!-- Поиск (самый широкий) -->
+            <div style="flex: 3; min-width: 200px;">
+                <label style="display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; color: var(--text-muted); font-weight: 600;">Ключевое слово</label>
+                <input type="text" name="q" value="{{ request.GET.q|default:'' }}" placeholder="Поиск по описанию..."
+                       style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; height: 40px; box-sizing: border-box;">
+            </div>
+
+            <!-- Пользователь -->
+            <div style="flex: 1; min-width: 140px;">
+                <label style="display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; color: var(--text-muted); font-weight: 600;">Пользователь</label>
+                <select name="user" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; height: 40px; background: var(--color-white); cursor: pointer;">
+                    <option value="">Все пользователи</option>
+                    <option value="System" {% if request.GET.user == 'System' %}selected{% endif %}>System</option>
+                    {% for u in users %}
+                    <option value="{{ u.username }}" {% if request.GET.user == u.username %}selected{% endif %}>{{ u.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Период -->
+            <div style="flex: 1; min-width: 140px;">
+                <label style="display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; color: var(--text-muted); font-weight: 600;">Дата</label>
+                <input type="date" name="date" value="{{ request.GET.date|default:'' }}"
+                   style="width: 100%; padding: 9px; border: 1px solid var(--border-color); border-radius: 6px; height: 40px; background: var(--color-white);">
+            </div>
+
+            <!-- Кнопка -->
+            <div style="flex: 0.6; min-width: 100px;">
+                <button type="submit" style="background: var(--accent-orange); color: white; border: none; padding: 0 15px; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; height: 40px; transition: 0.3s;">
+                    Найти
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- БЛОК 3: Таблица (стиль из Конфигурации) -->
+    <div style="background: var(--color-white); border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden;">
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="background: var(--bg-light-gray); border-bottom: 2px solid var(--border-color); color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <th style="padding: 15px 25px;">Время</th>
+                        <th style="padding: 15px 25px;">Инициатор</th>
+                        <th style="padding: 15px 25px;">Действие</th>
+                        <th style="padding: 15px 25px;">Детали</th>
+                        <th style="padding: 15px 25px; text-align: right;">Статус</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 14px;">
+                    {% for log in logs %}
+                    <tr style="border-bottom: 1px solid var(--bg-light); transition: 0.2s;" onmouseover="this.style.background='#fafafa'" onmouseout="this.style.background='transparent'">
+                        <td style="padding: 15px 25px; color: var(--text-muted); white-space: nowrap;">{{ log.timestamp|date:"d.m.Y H:i" }}</td>
+                        <td style="padding: 15px 25px;"><strong>{{ log.user.username }}</strong></td>
+                        <td style="padding: 15px 25px;">{{ log.action_name }}</td>
+                        <td style="padding: 15px 25px;">
+                            <code style="background: var(--color-code-bg); padding: 3px 8px; border-radius: 4px; font-size: 12px; font-family: monospace;">{{ log.details }}</code>
+                        </td>
+                        <td style="padding: 15px 25px; text-align: right;">
+                            <span style="color: {% if log.is_success %}var(--accent-green){% else %}var(--accent-red){% endif %}; font-weight: bold;">
+                                {% if log.is_success %}DONE{% else %}DENY{% endif %}
+                            </span>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="padding: 50px; text-align: center; color: var(--text-muted);">Архивы пусты.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Пагинация -->
+            {% if logs.has_other_pages %}
+            <div class="pagination" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 20px; margin-bottom: 20px;">
+                {% if logs.has_previous %}
+                    <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ logs.previous_page_number }}" 
+                       style="padding: 8px 12px; border: 1px solid var(--border-color); text-decoration: none; color: var(--text-dark); border-radius: 4px;">← Предыдущая</a>
+                {% endif %}
+
+                {% for num in logs.paginator.page_range %}
+                    {% if num == logs.number %}
+                        <span style="padding: 8px 12px; background: var(--accent-orange); color: white; border-radius: 4px; font-weight: bold;">{{ num }}</span>
+                    {% else %}
+                        <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ num }}" 
+                           style="padding: 8px 12px; border: 1px solid var(--border-color); text-decoration: none; color: var(--text-dark); border-radius: 4px;">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if logs.has_next %}
+                    <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ logs.next_page_number }}" 
+                       style="padding: 8px 12px; border: 1px solid var(--border-color); text-decoration: none; color: var(--text-dark); border-radius: 4px;">Следующая →</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
