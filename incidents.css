@@ -186,6 +186,12 @@
     font-size: 13px;
 }
 
+.list-line button:hover {
+    background-color: var(--text-dark); 
+    border-color: var(--background-color);
+    color: var(--background-color);
+}
+
 .list-line-empty{
     padding: 30px; 
     text-align: center; 
@@ -253,6 +259,7 @@
     padding: 10px 16px; 
     border: 1px solid var(--border-color); 
     background: var(--bg-light-gray); 
+    color: var(--text-light);
     border-radius: 6px; 
     cursor: pointer;
 }

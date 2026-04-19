@@ -22,8 +22,11 @@
     --text-light: #aaa;
     --error-red: #ff4d4d;
     --border-dark: #6b7280;
+    --input-text: #000;
     
     /* ФОНЫ */
+    --background-color: #ffffff;
+    --background-color-hover: #fff4e6;
     --bg-light: #f0f2f5;
     --bg-light-hover: #e0e0e0;
     --bg-light-gray: #f8f9fa;
@@ -33,13 +36,16 @@
     --bg-map: #e5e3df;
     --bg-disabled: #f5f5f5;
     --bg-red-light: #ffeaea;
+    --bg-input-text: #fff;
+    --bg-terminal: #1e1e1e;
     
     /* БОРДЕРЫ И РАЗДЕЛИТЕЛИ */
     --sidebar-width: 280px;
-    --background-color: #ffffff;
     --border-color: #e0e0e0;
     --border-light: #f0f0f0;
     --border-light-gray: #ddd;
+    --input-border: 1px solid #e0e0e0;
+    --input-outline: 2px solid #f39200;
     
     /* ТЕНИ И НАЛОЖЕНИЯ */
     --box-shadow: rgba(0,0,0,0.05);
@@ -78,9 +84,12 @@
     --text-light: #666666;
     --error-red: #ff6b6b;
     --border-dark: #555555;
+    --input-text: #fff;
     
     /* ФОНЫ */
-    --bg-light: #1a1a1a;
+    --background-color: #0d1117;
+    --background-color-hover: #10151d;
+    --bg-light: #1c1f23;
     --bg-light-hover: #2a2a2a;
     --bg-light-gray: #0f0f0f;
     --bg-light-gray-2: #1e1e1e;
@@ -89,13 +98,16 @@
     --bg-map: #222222;
     --bg-disabled: #333333;
     --bg-red-light: #2a1515;
+    --bg-input-text: #07090b;
+    --bg-terminal: #050506;
     
     /* БОРДЕРЫ И РАЗДЕЛИТЕЛИ */
     --sidebar-width: 280px;
-    --background-color: #0d1117;
     --border-color: #303030;
     --border-light: #222222;
     --border-light-gray: #404040;
+    --input-border: 1px solid #303030;
+    --input-outline: 2px solid #f39200;
     
     /* ТЕНИ И НАЛОЖЕНИЯ */
     --box-shadow: rgba(0,0,0,0.4);
@@ -134,8 +146,11 @@
     --text-light: #707070;
     --error-red: #d97b7b;
     --border-dark: #5a5a5a;
+    --input-text: #d4d4d4;
     
     /* ФОНЫ */
+    --background-color: #2d2d2d;
+    --background-color-hover: #272727;
     --bg-light: #3a3a3a;
     --bg-light-hover: #4a4a4a;
     --bg-light-gray: #2d2d2d;
@@ -145,13 +160,16 @@
     --bg-map: #353535;
     --bg-disabled: #474747;
     --bg-red-light: #3d2a2a;
+    --bg-input-text: #202020;
+    --bg-terminal: #1e1e1e;
     
     /* БОРДЕРЫ И РАЗДЕЛИТЕЛИ */
     --sidebar-width: 280px;
-    --background-color: #2d2d2d;
     --border-color: #4a4a4a;
     --border-light: #3a3a3a;
     --border-light-gray: #525252;
+    --input-border: 1px solid #4a4a4a;
+    --input-outline: 2px solid #f39200;
     
     /* ТЕНИ И НАЛОЖЕНИЯ */
     --box-shadow: rgba(0,0,0,0.3);
@@ -169,61 +187,129 @@
     --dark-gray: #3a3a3a;
 }
 
+/* Тревожная тема Серого*/
+[data-theme="mika"] {
+    /* ОСНОВНЫЕ ЦВЕТА */
+    --accent-orange: #4286eb;
+    --accent-orange-dark: #d9913d;
+    --accent-orange-light: #010102;
+    --accent-red: #fa4e4e;
+    --accent-red-dark: #c25a5a;
+    --accent-red-light: #e05555;
+    --accent-green: #6ba06b;
+    --accent-green-dark: #5a8f5a;
+    --tab-orange: #d98d3f;
+    --tab-orange-dark: #c87a2f;
+    
+    /* ТЕКСТ */
+    --text-dark: #96accc;
+    --text-muted: #34435a;
+    --text-secondary: #676767;
+    --text-light: #717171;
+    --error-red: #d97b7b;
+    --border-dark: #5a5a5a;
+    --input-text: #d4d4d4;
+    
+    /* ФОНЫ */
+    --background-color: #030a13;
+    --background-color-hover: #050f1d;
+    --bg-light: #1d2838;
+    --bg-light-hover: #4a4a4a;
+    --bg-light-gray: #2d2d2d;
+    --bg-light-gray-2: #383838;
+    --bg-light-hover-2: #454545;
+    --bg-light-hover-3: #4a4a4a;
+    --bg-map: #353535;
+    --bg-disabled: #474747;
+    --bg-red-light: #3d2a2a;
+    --bg-input-text: #1d2838;
+    --bg-terminal: #0a0d0f;
+    
+    /* БОРДЕРЫ И РАЗДЕЛИТЕЛИ */
+    --sidebar-width: 280px;
+    --border-color: #415c85;
+    --border-light: #3a3a3a;
+    --border-light-gray: #525252;
+    --input-border: 1px solid #415c85;
+    --input-outline: 2px solid #4286eb;
+    
+    /* ТЕНИ И НАЛОЖЕНИЯ */
+    --box-shadow: rgba(0,0,0,0.3);
+    --shadow-sm: rgba(0,0,0,0.2);
+    --shadow-md: rgba(0,0,0,0.4);
+    --shadow-lg: rgba(0,0,0,0.6);
+    --overlay-dark: rgb(21 25 34 / 76%);
+    
+    /* УТИЛИТЫ */
+    --color-white: #030a13;;
+    --color-black: #d4d4d4;
+    --color-code-bg: #333333;
+    --color-badge-bg: #4a4a4a;
+    --color-badge-text: #b0d0ff;
+    --dark-gray: #3a3a3a;
+}
+
 /* Автоматическая темная тема (системное предпочтение) */
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme]) {
-        /* ОСНОВНЫЕ ЦВЕТА */
-        --accent-orange: #ff9d40;
-        --accent-orange-dark: #ff7c2c;
-        --accent-orange-light: #1a1410;
-        --accent-red: #ff6b6b;
-        --accent-red-dark: #ff4444;
-        --accent-red-light: #ff5252;
-        --accent-green: #51cf66;
-        --accent-green-dark: #40c057;
-        --tab-orange: #fd7e14;
-        --tab-orange-dark: #fb6820;
-        
-        /* ТЕКСТ */
-        --text-dark: #e8e8e8;
-        --text-muted: #b0b0b0;
-        --text-secondary: #888888;
-        --text-light: #666666;
-        --error-red: #ff6b6b;
-        --border-dark: #555555;
-        
-        /* ФОНЫ */
-        --bg-light: #1a1a1a;
-        --bg-light-hover: #2a2a2a;
-        --bg-light-gray: #0f0f0f;
-        --bg-light-gray-2: #1e1e1e;
-        --bg-light-hover-2: #262626;
-        --bg-light-hover-3: #2a2a2a;
-        --bg-map: #222222;
-        --bg-disabled: #333333;
-        --bg-red-light: #2a1515;
-        
-        /* БОРДЕРЫ И РАЗДЕЛИТЕЛИ */
-        --sidebar-width: 280px;
-        --background-color: #0d1117;
-        --border-color: #303030;
-        --border-light: #222222;
-        --border-light-gray: #404040;
-        
-        /* ТЕНИ И НАЛОЖЕНИЯ */
-        --box-shadow: rgba(0,0,0,0.4);
-        --shadow-sm: rgba(0,0,0,0.3);
-        --shadow-md: rgba(0,0,0,0.5);
-        --shadow-lg: rgba(0,0,0,0.7);
-        --overlay-dark: rgba(0,0,0,0.7);
-        
-        /* УТИЛИТЫ */
-        --color-white: #0d1117;
-        --color-black: #e8e8e8;
-        --color-code-bg: #161b22;
-        --color-badge-bg: #1a2734;
-        --color-badge-text: #79c0ff;
-        --dark-gray: #21262d;
+    /* ОСНОВНЫЕ ЦВЕТА */
+    --accent-orange: #ff9d40;
+    --accent-orange-dark: #ff7c2c;
+    --accent-orange-light: #1a1410;
+    --accent-red: #ff6b6b;
+    --accent-red-dark: #ff4444;
+    --accent-red-light: #ff5252;
+    --accent-green: #51cf66;
+    --accent-green-dark: #40c057;
+    --tab-orange: #fd7e14;
+    --tab-orange-dark: #fb6820;
+    
+    /* ТЕКСТ */
+    --text-dark: #e8e8e8;
+    --text-muted: #b0b0b0;
+    --text-secondary: #888888;
+    --text-light: #666666;
+    --error-red: #ff6b6b;
+    --border-dark: #555555;
+    --input-text: #fff;
+    
+    /* ФОНЫ */
+    --background-color: #0d1117;
+    --background-color-hover: #10151d;
+    --bg-light: #1c1f23;
+    --bg-light-hover: #2a2a2a;
+    --bg-light-gray: #0f0f0f;
+    --bg-light-gray-2: #1e1e1e;
+    --bg-light-hover-2: #262626;
+    --bg-light-hover-3: #2a2a2a;
+    --bg-map: #222222;
+    --bg-disabled: #333333;
+    --bg-red-light: #2a1515;
+    --bg-input-text: #07090b;
+    --bg-terminal: #050506;
+    
+    /* БОРДЕРЫ И РАЗДЕЛИТЕЛИ */
+    --sidebar-width: 280px;
+    --border-color: #303030;
+    --border-light: #222222;
+    --border-light-gray: #404040;
+    --input-border: 1px solid #303030;
+    --input-outline: 2px solid #f39200;
+    
+    /* ТЕНИ И НАЛОЖЕНИЯ */
+    --box-shadow: rgba(0,0,0,0.4);
+    --shadow-sm: rgba(0,0,0,0.3);
+    --shadow-md: rgba(0,0,0,0.5);
+    --shadow-lg: rgba(0,0,0,0.7);
+    --overlay-dark: rgba(0,0,0,0.7);
+    
+    /* УТИЛИТЫ */
+    --color-white: #0d1117;
+    --color-black: #e8e8e8;
+    --color-code-bg: #161b22;
+    --color-badge-bg: #1a2734;
+    --color-badge-text: #79c0ff;
+    --dark-gray: #21262d;
     }
 }
 
@@ -341,9 +427,20 @@ body {
     margin: 0; /* Обязательно сбросьте отступы браузера */
     align-items: stretch;
     padding-bottom: 80px !important; 
+    color: var(--text-dark);
 }
 html {
     height: 100%;
+}
+input[type="text"], input[type="search"], input[type="password"], textarea, select
+{
+    background-color: var(--bg-input-text);
+    color: var(--input-text);
+    border: var(--input-border);
+}
+input[type="text"]:focus, input[type="text"]:focus, textarea:focus, select:focus
+{
+    outline: var(--input-outline);
 }
 /* --- ЛОГОТИП --- */
 .logo-container { display: flex; align-items: center; padding: 20px; gap: 12px; }
@@ -605,7 +702,6 @@ html {
 .form-group input {
     flex: 1;             /* Каждый инпут занимает равную часть строки */
     padding: 12px;
-    border: 1px solid var(--border-color);
     border-radius: 6px;
     outline: none;
     min-width: 0;        /* Важно, чтобы инпуты не "вылезали" за границы */
@@ -714,19 +810,24 @@ html {
 .ip-address-container {
     display: flex;
     align-items: center;
-    background: #fff;
-    border: 1px solid #ccc;
+    background: var(--bg-input-text);
+    border: var(--input-border);
     border-radius: 4px;
     padding: 0 8px; /* Немного увеличим боковые отступы */
+}
+
+.ip-address-container:focus
+{
+    outline: var(--input-outline);
 }
 
 /* 3. Уточняем стили инпутов внутри IP */
 .ip-octet {
     width: 35px;
     height: 100%; /* Растягиваем на всю высоту родителя */
-    border: none;
+    border: none !important;
     text-align: center;
-    outline: none;
+    outline: none !important;
     font-family: inherit;
     background: transparent; /* Чтобы не перекрывал фон контейнера */
     padding: 0;
@@ -844,7 +945,7 @@ html {
     flex-grow: 0;
     height: calc(100vh - 400px); /* 100% высоты экрана минус высота меню и кнопок */
     min-height: 400px;
-    background: #1e1e1e;
+    background: var(--bg-terminal);
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -885,7 +986,7 @@ html {
 /* Нижняя панель */
 /* Основной контейнер панели */
 .node-actions-bar {
-    background: white;
+    background: var(--background-color);
     padding: 15px;
     border-radius: 12px;
     display: flex;
@@ -913,8 +1014,8 @@ html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #fcfcfc;
-    border: 1px solid #eee;
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
     cursor: pointer;
     padding: 12px 5px;
     border-radius: 10px;
@@ -936,7 +1037,7 @@ html {
 
 /* Эффекты наведения */
 .action-btn:hover {
-    background-color: #fff4e6;
+    background-color: var(--background-color-hover);
     border-color: var(--accent-orange);
     color: var(--accent-orange);
     transform: translateY(-2px);
@@ -1022,3 +1123,4 @@ html {
     /* Теперь этот текст будет стоять ровно под текстом других пунктов */
     font-size: inherit;
 }
+

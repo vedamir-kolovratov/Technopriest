@@ -1,0 +1,297 @@
+[data-theme="mika"]
+{
+    .node-header
+    {
+        margin: 0px;
+        background-color: transparent;
+        box-shadow: none;
+        padding-bottom: 0px;
+    }
+    .serch_panel
+    {
+        margin: 0px;
+        background-color: transparent;
+        box-shadow: none;
+        padding-bottom: 0px;
+    }
+
+    .table_panel
+    {
+        margin: 0px;
+        background-color: transparent;
+        box-shadow: none;
+    }
+    
+    .main-content
+    {
+        padding: 0px;
+    }
+
+    .serch_panel input, .node-input, .ip-address-container
+    {
+        font-size: 14px;
+        padding: 5px;
+        height: auto;
+        box-sizing:border-box;
+        border-radius: 7px;
+    }
+
+    #searchButton, .node-btn
+    {
+        font-size: 14px;
+        padding: 6px 30px;
+        height: auto;
+        box-sizing:border-box;
+        margin: 0px;
+        border-radius: 7px;
+    }
+
+    .serch_panel_point label
+    {
+        display: inline-block;
+        box-sizing: border-box;
+        padding: 5px 30px;
+        border-radius: 7px;
+        background-color: var(--background-color);
+        font-size: 10px;
+        display: none;
+    }
+
+    .table_panel h3
+    {
+        display: inline-block;
+        box-sizing: border-box;
+        padding: 5px 30px;
+        border-radius: 7px;
+        background-color: var(--background-color);
+        font-size: 16px;
+        margin: 0px;
+        margin-bottom: 5px;
+        /*Эта штука тоже не нужна*/
+        display: none;
+    }
+
+    .table_panel
+    {
+        overflow: visible;
+    }
+
+    .node-header h2
+    {
+        display: inline-block;
+        font-size: 20px;
+        margin: 0px;
+    }
+
+    .list-line
+    {
+        display: flex;
+        background-color: var(--background-color);
+        margin-bottom: 5px;
+        border-radius: 7px;
+        flex-wrap: wrap;
+        padding: 0.3em 1em;
+    }
+
+    .list-line td
+    {
+        display: flex;
+        box-sizing: border-box;
+        width: 10%;
+        align-items: start;
+        flex-grow: 1;
+        padding: 0.3em;
+    }
+
+    .list-line td:nth-child(4), .list-line td:nth-child(5)
+    {
+        font-size: 0.8em;
+    }
+    .list-line td:nth-child(2)
+    {
+        padding-left: 1em;
+        width: 40%;
+    }
+    .list-line td:nth-child(2) span
+    {
+        display: none;
+    }
+    .list-line td:nth-child(3)
+    {
+        width: 20%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .list-line td:nth-child(3):hover
+    {
+        overflow: visible;
+        white-space: pre-line;
+        z-index: 1;
+        background-color: var(--background-color);
+        cursor: help;
+    }
+
+    .about-section
+    {
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    .about-content
+    {
+        color: var(--text-dark);
+    }
+
+    .terminal-window
+    {
+        border-radius: 0;
+    }
+
+    /*Удаляем все лишнее и не только*/
+    body
+    {
+        padding-bottom: 0px !important;
+    }
+    .table_panel thead
+    {
+        display: none;
+    }
+    
+    .node-header p
+    {
+        display: none;
+    }
+    
+    .table_panel h3 span
+    {
+        display: none;
+    }
+
+    .table_panel table
+    {
+        border: 0px;
+    }
+    
+    .bis-btn
+    {
+        display: none;
+    }
+
+    .settings-container
+    {
+        gap: 0px;
+    }
+
+    .settings-card
+    {
+        border-radius: 0;
+    }
+
+    .css-icon
+    {
+        display: none;
+    }
+
+    .card-header
+    {
+        margin: 0px;
+        margin-bottom: 15px;
+    }
+
+    .terminal-header
+    {
+        display: none;
+    }
+
+    @media (max-width: 1500px) {
+        .list-line td
+        {
+            width: 30%;
+        }
+        .list-line td:nth-child(1)::before
+        {
+            content: "IP: ";
+            margin-right: 1em;
+        }
+        .list-line td:nth-child(2)::before
+        {
+            content: "Адрес: ";
+            margin-right: 1em;
+        }
+        .list-line td:nth-child(3)::before
+        {
+            content: "Комм.: ";
+            margin-right: 1em;
+        }
+        .list-line td:nth-child(4)::before
+        {
+            content: "Обнаружено: ";
+            margin-right: 1em;
+        }
+        .list-line td:nth-child(5)::before
+        {
+            content: "Длительность: ";
+            margin-right: 1em;
+        }
+        .list-line td:nth-child(2)
+        {
+            width: 40%;
+        }
+        .list-line td:nth-child(6) .incident-comment-open
+        {
+            margin-left: auto;
+        }
+        .list-line td:nth-child(4), .list-line td:nth-child(5)
+        {
+            opacity: 0.4;
+        }
+    }
+
+    @media (min-width: 1025px) {
+
+        .toggle-menu
+        {
+            top: 50%;
+            transform: translate(calc(-50% - 20px), -50%);
+            box-shadow: none;
+            width: 30px;
+            height: 30px;
+            color: transparent;
+        }
+    }
+
+    @media (max-width: 1025px) {
+        .main-content
+        {
+            margin-left: 0;
+        }
+        .list-line td
+        {
+            width: 50%;
+        }
+        .list-line td:nth-child(2n+2)
+        {
+            justify-content: flex-end;
+        }
+        .list-line td:nth-child(1), .list-line td:nth-child(4)
+        {
+            width: 30%;
+        }
+        .list-line td:nth-child(2), .list-line td:nth-child(3)
+        {
+            width: 70%;
+        }
+    }
+
+
+    @media (max-width: 680px) {
+        .list-line td:nth-child(n)
+        {
+            width: 100%;
+            justify-content: flex-start;
+            padding-left: 0px;
+            padding-bottom: 5px;
+        }
+    }
+}
